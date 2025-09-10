@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.testng:testng:7.11.0'
+    testImplementation 'org.seleniumhq.selenium:selenium-java:4.35.0'
+    testImplementation 'org.hamcrest:hamcrest:3.0'
+}
+
+test {
+    useTestNG() {
+        suites 'src/test/resources/testng.xml'
+    }
+    //запускается из командной строки со свойством gradlew -Pbrowser=firefox testGroups
+    // Если не указывать то запускается с дефолтным свойством из TestBase
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser', "${browser}"
+    }
+    //запускается из командной строки со свойством gradlew -Ptarget=local testGroups
+    // Если не указывать то запускается с дефолтным свойством из TestBase
+    if (project.hasProperty('target')) {
+        systemProperty 'target', "${target}"
+    }
+    //Запуск тестов с учетом или без проверки на UI интерфейсе (сравнение UI и из БД)
+    //запускается из командной строки со свойством gradlew -PverifyUI=true testGroups
+    // Если не указывать то запускается с дефолтным свойством из TestBase
+    if (project.hasProperty('verifyUI')) {
+        systemProperty 'verifyUI', "${verifyUI}"
+    }
+}
