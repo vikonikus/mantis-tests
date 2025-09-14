@@ -1,5 +1,11 @@
 package ru.stqa.pft.mantis.appmanager;
 
+import org.subethamail.wiser.Wiser;
+import org.subethamail.wiser.WiserMessage;
+import ru.stqa.pft.mantis.model.MailMessage;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +23,7 @@ public class MailHepler {
     long start = System.currentTimeMillis();
     while (System.currentTimeMillis() < start + timeout) {
       if (wiser.getMessages().size() >= count) {
-        return wiser.getMessage().stream().map((m) -> toModelMail(m)).collect(Collectors.toList());
+        return wiser.getMessages().stream().map((m) -> toModelMail(m)).collect(Collectors.toList());
       }
       try {
         Thread.sleep(1000);
@@ -32,7 +38,7 @@ public class MailHepler {
     try {
       MimeMessage mm = m.getMimeMessage();
       return new MailMessage(mm.getAllRecipients()[0].toString(), (String) mm.getContent());
-    } catch (MessaingException e) {
+    } catch (MessagingException e) {
       e.printStackTrace();
       return null;
     } catch (IOException e) {
