@@ -17,6 +17,7 @@ public class ApplicationManager {
   private String browser;
   private RegistrationHelper registrationHelper;
   private FtpHelper ftp;
+  private MailHepler mailHelper;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
@@ -71,6 +72,13 @@ public class ApplicationManager {
       wd.get(properties.getProperty("web.baseUrl"));
     }
     return wd;
+  }
+
+  public MailHepler mail() {
+    if (mailHelper == null) {
+      mailHelper = new MailHepler(this);
+    }
+    return mailHelper;
   }
 }
 
