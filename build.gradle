@@ -17,6 +17,7 @@ dependencies {
     testImplementation 'org.subethamail:subethasmtp:3.1.7'
     testImplementation 'ru.lanwen.verbalregex:java-verbal-expressions:1.8'
     testImplementation 'ch.qos.logback:logback-classic:1.5.18'
+    implementation 'biz.futureware.mantis:mantis-axis-soap-client:1.2.19'
 }
 
 test {
